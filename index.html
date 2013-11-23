@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Our beloved leader speaks</title>
+	  	<link rel="stylesheet" href="atlas.css">
+	  	<style>
+	  		body { background: black; }
+	  		div, img { position: absolute; color: white;}
+	  		h1 { color: white; }
+	  		span { color: red; }
+	  	</style>
+	</head>
+	<h1>Our beloved leader speaks (with a British accent)</h1>
+  	<div>
+	  	<img src='backdrop.jpg'>
+	  	<div>
+	    	<div id="body" class="belovedleader-png"></div>
+		</div>
+	  	<div>
+	    	<div id="left-eye" class="l-eye-png"></div>
+		</div>
+	  	<div>
+	    	<div id="right-eye" class="r-eye-png"></div>
+		</div>
+	  	<div>
+	    	<div id="mouth" class="silent-png"></div>
+		</div>
+	</div>
+  	<div id='text' style='margin-left:520px;font-size:50px;color:white;width:200px'></div>	
+	<audio id='alpha' src='alphabet.ogg' oncanplay='start()'>
+	<audio id='num' src='numbers.ogg' oncanplay='start()'>
+    <script>
+    	// Reset the eyes back to normal state.
+		function resetEyes() {
+			var l = document.getElementById('left-eye');
+			var r = document.getElementById('right-eye');
+			l.className = "l-eye-png";
+			r.className = "r-eye-png";
+		}
+
+		// Do a blink, and queue up a new one in a random amount of time.
+		function blink() {
+			var l = document.getElementById('left-eye');
+			var r = document.getElementById('right-eye');
+			l.className = "l-eye-blink-png";
+			r.className = "r-eye-blink-png";
+			setTimeout(resetEyes, 100);
+			setTimeout(function() { blink() }, Math.random() * 3000 + 1000);
+		}
+
+		// Figure out which facial expression to use for a letter and set it.
+		function setPhoneme(ch) {
+			var phonemes = ['AI', 'E', 'O', 'U', 'BMP', 'CDGHJKNRSTXYZ', 'L', 'FV', 'WQ'];
+			var m = document.getElementById('mouth');
+			for (var i = 0; i < phonemes.length; ++i) {
+				for (var j = 0; j < phonemes[i].length; ++j) {
+					if (ch == phonemes[i][j]) {
+						m.className = phonemes[i] + '-png';
+						return;
+					}
+				}
+			}
+			m.className = 'silent-png';
+		}
+
+		function createPhonemeCallback(c) {
+			return function() { setPhoneme(c); };
+		}
+
+		// Queue up several facial expressions to make up a word.
+		function setPhonemes(str, len) {
+			var delay = len / str.length;
+			setPhoneme(str[0]);
+			for (var i = 1; i < str.length; ++i) {
+				setTimeout(createPhonemeCallback(str[i]), delay * i);
+			}
+		}
+
+		// The buffer of stuff left to say, a counter to make sure both sounds are loaded and the default delay.
+		var talk = '';
+		var original = '';
+		var ready = 0;
+		var chardelay = 100;
+
+		function sayString(s) {
+			talk = s.toUpperCase() + ' ';
+			original = s;
+			talkMore();
+		}
+
+		// Pick the first character off and start a sound and queue up facial expressions.
+		function talkMore() {
+			if (talk.length > 0) {
+				var ch = talk[0];
+				talk = talk.substr(1);
+				var len = 200;
+				if (validChar(ch)) {
+					len = getLength(ch) * 1000;
+				} else if (validNum(ch)) {
+					len = getNLength(ch) * 1000;
+				}
+				switch (ch) {
+					case 'B': setPhonemes('BE', len); break;
+					case 'C': setPhonemes('CE', len); break;
+					case 'D': setPhonemes('DE', len); break;
+					case 'F': setPhonemes('EF', len); break;
+					case 'G': setPhonemes('GE', len); break;
+					case 'H': setPhonemes('AH', len); break;
+					case 'J': setPhonemes('JAY', len); break;
+					case 'K': setPhonemes('KAY', len); break;
+					case 'L': setPhonemes('EL', len); break;
+					case 'M': setPhonemes('EM', len); break;
+					case 'N': setPhonemes('EN', len); break;
+					case 'P': setPhonemes('PE', len); break;
+					case 'Q': setPhonemes('QU', len); break;
+					case 'R': setPhonemes('AR', len); break;
+					case 'S': setPhonemes('ES', len); break;
+					case 'T': setPhonemes('TE', len); break;
+					case 'V': setPhonemes('VE', len); break;
+					case 'W': setPhonemes('DBLU', len); break;
+					case 'X': setPhonemes('EX', len); break;
+					case 'Y': setPhonemes('WI', len); break;
+					case 'Z': setPhonemes('ZED', len); break;
+					case '0': setPhoneme('O'); break;
+					case '1': setPhonemes('ONE', len); break;
+					case '2': setPhonemes('TWO', len); break;
+					case '3': setPhonemes('THREE', len); break;
+					case '4': setPhonemes('FOUR', len); break;
+					case '5': setPhonemes('FIVE', len); break;
+					case '6': setPhonemes('SIX', len); break;
+					case '7': setPhonemes('SEVEN', len); break;
+					case '8': setPhonemes('EIGHT', len); break;
+					case '9': setPhonemes('NINE', len); break;
+					default: setPhoneme(ch); break;
+				}
+				playCharacter(ch);
+				updateSpan();
+			}
+		}
+
+		// Stop both audio elements (lazy), set the facial expression to blank.
+		function stopCharacter() {
+			var s = document.getElementById('alpha');
+			var n = document.getElementById('num');
+			s.pause();
+			n.pause();
+			setPhoneme(' ');
+			setTimeout(talkMore, chardelay);
+		}
+
+		function validChar(c) {
+			var ch = c.charCodeAt(0);
+			var A = 'A'.charCodeAt(0);
+			var Z = 'Z'.charCodeAt(0);
+			return (ch >= A && ch <= Z);	
+		}
+
+		// Get the lenght of a letter sound.
+		function getLength(c) {
+			var lengths = [0.42, 0.37, 0.54, 0.46, 0.47, 0.50, 0.47, 0.55, 0.51, 0.50, 0.44, 0.48, 0.45, 0.50, 0.49, 0.47, 0.56, 0.55, 0.51, 0.54, 0.50, 0.52, 0.62, 0.58, 0.56, 0.49, 0.56];
+			if (validChar(c)) {
+				return lengths[c.charCodeAt(0) - 'A'.charCodeAt(0)];
+			}
+			return -1;
+		}
+
+		// Get the offset for a letter sound.
+		function getStart(c) {
+			var starts = [1.47, 2.70, 4.03, 5.45, 6.87, 8.37, 9.69, 11.21, 12.50, 13.91, 15.33, 16.83, 18.40, 19.78, 21.52, 22.87, 24.41, 25.92, 27.45, 28.96, 30.65, 32.24, 33.90, 35.55, 37.03, 38.46, 40.17];
+			if (validChar(c)) {
+				return starts[c.charCodeAt(0) - 'A'.charCodeAt(0)];
+			}
+			return -1;
+		}
+
+		function validNum(c) {
+			var ch = c.charCodeAt(0);
+			var zero = '0'.charCodeAt(0);
+			var nine = '9'.charCodeAt(0);
+			return (ch >= zero && ch <= nine);	
+		}
+
+		// Get the length of a number sound.
+		function getNLength(c) {
+			var lengths = [0.48, 0.44, 0.43, 0.45, 0.44, 0.47, 0.57, 0.57, 0.51, 0.52];
+			if (validNum(c)) {
+				return lengths[c.charCodeAt(0) - '0'.charCodeAt(0)];
+			}
+			return -1;
+		}
+
+		// Get the offset to a number sound.
+		function getNStart(c) {
+			var starts = [0.51, 2.78, 4.51, 6.27, 8.17, 10.10, 11.90, 13.86, 15.74, 17.72];
+			if (validNum(c)) {
+				return starts[c.charCodeAt(0) - '0'.charCodeAt(0)];
+			}
+			return -1;
+		}
+
+		// Play a single character sound, or say nothing if it's not a-z, 0-9
+		function playCharacter(c) {
+			if (validChar(c)) {
+				var s = document.getElementById('alpha');
+				s.currentTime = getStart(c)
+				s.play();
+				setTimeout(stopCharacter, 1000 * getLength(c));
+			} else if (validNum(c)) {
+				var n = document.getElementById('num');
+				n.currentTime = getNStart(c);
+				n.play();
+				setTimeout(stopCharacter, 1000 * getNLength(c));
+			} else {
+				setTimeout(talkMore, chardelay);
+			}
+
+		}
+
+		// Ugly copy-paste from stackoverflow. 
+		function getParameterByName(name) {
+    		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        	results = regex.exec(location.search);
+    		return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		function updateSpan() {
+			var pos = original.length - talk.length;	
+			document.getElementById('text').innerHTML = original.substr(0,pos) + '<span>' + original.substr(pos,1) + '</span>' + original.substr(pos+1);
+		}
+
+		// Start blinking even if the sounds aren't loaded.
+		blink();
+
+		function start() {
+			// We need a callback from both our sounds saying they're ready to be played.
+			if (++ready != 2) {
+				return;
+			}
+
+			var del = getParameterByName('delay');
+			if (del) {
+				chardelay = del;
+			}
+			var txt = getParameterByName('text');
+			if (!txt) {
+				txt = '0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z';
+			}
+			document.getElementById('text').innerHTML = txt;
+
+			sayString(txt);
+		}
+    </script>
+</html>

@@ -1,0 +1,195 @@
+div.belovedleader-png
+{
+  position: relative;
+  padding-left: 58px;
+  padding-top: 11px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  width: 454px;
+  height: 501px;
+  background: url('atlas.png') 58px 11px no-repeat;
+  background-clip: content-box;
+}
+
+div.FV-png
+{
+  position: relative;
+  padding-left: 182px;
+  padding-top: 318px;
+  padding-right: 190px;
+  padding-bottom: 126px;
+  width: 140px;
+  height: 68px;
+  background: url('atlas.png') 182px -183px no-repeat;
+  background-clip: content-box;
+}
+
+div.CDGHJKNRSTXYZ-png
+{
+  position: relative;
+  padding-left: 183px;
+  padding-top: 320px;
+  padding-right: 194px;
+  padding-bottom: 122px;
+  width: 135px;
+  height: 70px;
+  background: url('atlas.png') 43px -181px no-repeat;
+  background-clip: content-box;
+}
+
+div.E-png
+{
+  position: relative;
+  padding-left: 185px;
+  padding-top: 312px;
+  padding-right: 199px;
+  padding-bottom: 111px;
+  width: 128px;
+  height: 89px;
+  background: url('atlas.png') -269px 312px no-repeat;
+  background-clip: content-box;
+}
+
+div.AI-png
+{
+  position: relative;
+  padding-left: 206px;
+  padding-top: 307px;
+  padding-right: 223px;
+  padding-bottom: 99px;
+  width: 83px;
+  height: 106px;
+  background: url('atlas.png') -248px 218px no-repeat;
+  background-clip: content-box;
+}
+
+div.BMP-png
+{
+  position: relative;
+  padding-left: 198px;
+  padding-top: 346px;
+  padding-right: 211px;
+  padding-bottom: 154px;
+  width: 103px;
+  height: 12px;
+  background: url('atlas.png') 198px -223px no-repeat;
+  background-clip: content-box;
+}
+
+div.L-png
+{
+  position: relative;
+  padding-left: 202px;
+  padding-top: 301px;
+  padding-right: 219px;
+  padding-bottom: 109px;
+  width: 91px;
+  height: 102px;
+  background: url('atlas.png') -252px 106px no-repeat;
+  background-clip: content-box;
+}
+
+div.U-png
+{
+  position: relative;
+  padding-left: 225px;
+  padding-top: 304px;
+  padding-right: 246px;
+  padding-bottom: 123px;
+  width: 41px;
+  height: 85px;
+  background: url('atlas.png') -312px 215px no-repeat;
+  background-clip: content-box;
+}
+
+div.O-png
+{
+  position: relative;
+  padding-left: 224px;
+  padding-top: 312px;
+  padding-right: 238px;
+  padding-bottom: 119px;
+  width: 50px;
+  height: 81px;
+  background: url('atlas.png') -230px 15px no-repeat;
+  background-clip: content-box;
+}
+
+div.WQ-png
+{
+  position: relative;
+  padding-left: 213px;
+  padding-top: 310px;
+  padding-right: 258px;
+  padding-bottom: 123px;
+  width: 41px;
+  height: 79px;
+  background: url('atlas.png') -62px -191px no-repeat;
+  background-clip: content-box;
+}
+
+div.silent-png
+{
+  position: relative;
+  padding-left: 230px;
+  padding-top: 331px;
+  padding-right: 240px;
+  padding-bottom: 169px;
+  width: 42px;
+  height: 12px;
+  background: url('atlas.png') -86px -170px no-repeat;
+  background-clip: content-box;
+}
+
+div.l-eye-blink-png
+{
+  position: relative;
+  padding-left: 179px;
+  padding-top: 220px;
+  padding-right: 305px;
+  padding-bottom: 284px;
+  width: 28px;
+  height: 8px;
+  background: url('atlas.png') 76px -349px no-repeat;
+  background-clip: content-box;
+}
+
+div.r-eye-blink-png
+{
+  position: relative;
+  padding-left: 280px;
+  padding-top: 208px;
+  padding-right: 204px;
+  padding-bottom: 295px;
+  width: 28px;
+  height: 9px;
+  background: url('atlas.png') 140px -363px no-repeat;
+  background-clip: content-box;
+}
+
+div.r-eye-png
+{
+  position: relative;
+  padding-left: 284px;
+  padding-top: 202px;
+  padding-right: 209px;
+  padding-bottom: 289px;
+  width: 19px;
+  height: 21px;
+  background: url('atlas.png') -32px -311px no-repeat;
+  background-clip: content-box;
+}
+
+div.l-eye-png
+{
+  position: relative;
+  padding-left: 184px;
+  padding-top: 215px;
+  padding-right: 310px;
+  padding-bottom: 278px;
+  width: 18px;
+  height: 19px;
+  background: url('atlas.png') -151px -298px no-repeat;
+  background-clip: content-box;
+}
+
